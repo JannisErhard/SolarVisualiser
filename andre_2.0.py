@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import csv
 import matplotlib.pyplot as plt
 import sys
 
@@ -10,20 +9,28 @@ left=[]
 right=[]
 x=[]
 y=[]
-#magischen csv reader nehmen um datei einzulesen
-file=open(filename,"r")
-lines=file.readlines()
 
-#schreib alles bis "voltage" in den header
+def read_and_parse_current_file(filename):
+    '''Open, Read and Parse file filename'''
+    
+    file=open(filename,"r")
+    lines=file.readlines()
+    
+    for line in lines:
+    # if line is empty, add element that can be identified later in
+        if line == "\n":
+            right.append("Empty_Line")
+            left.append("Empty_Line")
+        else:
+    # in case of normal line 
+#           left.append(((line.strip().split(","))[0]).strip())
+#           right.append(((line.strip().split(","))[1].strip()))
+           left.append(((line.split(","))[0]).strip())
+           right.append(((line.split(","))[1].strip()))
+    file.close()
+    return left, right
 
-for line in lines:
-    if line == "\n":
-        right.append("Empty_Line")
-        left.append("Empty_Line")
-    else:
-       left.append(((line.strip().split(","))[0]).strip())
-       right.append(((line.strip().split(","))[1].strip()))
-file.close()
+left, right = read_and_parse_current_file(filename)
 
 startpoint=left.index("Voltage:")
 endpoint=left.index("Empty_Line")
