@@ -35,5 +35,4 @@ plt.plot(x,y)
 plt.xlabel(xlabel)
 plt.ylabel(ylabel)
 plt.show()
-print(len(x),len(y))
 
